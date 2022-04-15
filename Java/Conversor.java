@@ -1,0 +1,17 @@
+//package Users.Matheus.Desktop.Programas.PrimeiroPrograma;
+
+public class Conversor{
+	
+	public static void converteGraus(double c){//método conversor de graus celcius
+		double f = c * 1.8 + 32;
+		double k = c + 237.15;
+		double re = c * 0.8;
+		double ra = f + 459.67;
+		System.out.println("valor em Fahrenheit (F) é:"+f);
+		System.out.println("valor em Kelvin (K) é:"+k);
+		System.out.println("valor em Réaumur (Re) é:"+re);
+		System.out.println("valor em Rankine (Ra) é:"+ra);
+	}
+	
+	
+}
