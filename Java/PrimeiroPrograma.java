@@ -14,7 +14,8 @@ public class PrimeiroPrograma{
 		System.out.println("3 = analisa funcionario");
 		System.out.println("4 = calcula azulejos para parede");
 		System.out.println("5 = analisa matriz quadrada");
-		System.out.println("6 = sair");
+		System.out.println("6 = Jogar Lordes");
+		System.out.println("7 = sair");
 		
 		int escolha = entrada.nextInt();
 		
@@ -62,6 +63,8 @@ public class PrimeiroPrograma{
 				int x = entrada.nextInt();
 				Matriz.maiorValor(Matriz.inicializaMatriz(x));
 				break;
+			case 6:
+				Lordes.Jogar();
 			default:
 				break;
 		}

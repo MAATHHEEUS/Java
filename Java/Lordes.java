@@ -1,5 +1,5 @@
-import java.util.Scanner;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Lordes{
 	
@@ -8,7 +8,7 @@ public class Lordes{
 	public static int esquerda;
 	public static int direita;
 	
-	public static void main(String args[]){
+	public static void Jogar(){
 		System.out.println("BEM VINDO AO LORDES!!!");
 		
 		Random r = new Random();
@@ -16,7 +16,8 @@ public class Lordes{
 		soldados = r.nextInt(10)+1;
 	
 		while (true){
-			inimigos = r.nextInt(soldados)+1(*3);
+			inimigos = r.nextInt(soldados)+1;
+			inimigos = inimigos*3;
 			System.out.println("Voce tem "+soldados+" soldados");
 			System.out.println("inimigos: "+inimigos+"\n");
 			direita = r.nextInt(9)+1;
