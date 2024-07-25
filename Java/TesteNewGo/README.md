@@ -2,7 +2,7 @@
 
 Teste de lógica com linguagem Orientada a Objetos
 
-Criar uma classe "Senha" que tenha um atributo conteúdo, que corresponde a ao conteúdo da senha.
+Criar uma classe "Senha" que tenha um atributo conteúdo, que corresponde ao conteúdo da senha.
  - A classe deve fazer validações:
     - Deve ter entre 10 a 30 caracteres;
     - Deve conter ao menos um caracter especial, uma letra maiúscula, uma letra minúscula e um número;
