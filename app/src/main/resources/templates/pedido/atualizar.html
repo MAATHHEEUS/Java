@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Pedido</title>
+</head>
+<body>
+    <h1>Editar Pedido</h1>
+    <form th:action="@{/pedidos/atualizar/{id}(id=${pedido.id})}" th:object="${pedido}" method="post">
+        <label for="status">Status:</label>
+        <select id="status" name="status" th:value="*{status}">
+            <option value="EM_PREPARO">Em preparo</option>
+            <option value="SAIDA_ENTREGA">Saiu para entrega</option>
+            <option value="ENTREGUE">Entregue</option>
+        </select>
+
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" id="quantidade" name="quantidade" th:value="*{quantidade}" />
+
+        <button type="submit">Salvar</button>
+    </form>
+</body>
+</html>
