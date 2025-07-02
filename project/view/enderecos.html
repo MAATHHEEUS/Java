@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD de Cliente</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="static/styles/sidebar.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div id="sidebar" class="bg-dark text-white p-3 vh-100 sidebar">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4>Menu</h4>
+                <button class="sidebar-toggle" onclick="toggleSidebar()">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2">
+                    <a href="index.html" class="nav-link text-white">
+                        <i class="bi bi-pencil-square me-2"></i> <span>Cadastro</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white d-flex justify-content-between align-items-center"
+                        data-bs-toggle="collapse" href="#submenuConsulta" role="button" aria-expanded="false"
+                        aria-controls="submenuConsulta">
+                        <span><i class="bi bi-search me-2"></i> Consulta</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+                    <div class="collapse ps-4" id="submenuConsulta">
+                        <ul class="nav flex-column mt-2">
+                            <li class="nav-item">
+                                <a href="clientes.html" class="nav-link text-white">
+                                    <i class="bi bi-person me-2"></i> <span>Cliente</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="enderecos.html" class="nav-link text-white">
+                                    <i class="bi bi-geo-alt me-2"></i> <span>Endereço</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div class="flex-grow-1 p-4">
+            <h2 class="mb-4">Consulta de Endereços</h2>
+
+            <!-- Alerta -->
+            <div id="alerta" class="alert alert-warning d-none" role="alert">
+                Teste
+            </div>
+
+            <!-- Tabela de Enderecos -->
+            <table class="table table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Logradouro</th>
+                        <th>Cidade</th>
+                        <th>Estado</th>
+                        <th>CEP</th>
+                        <th>Tipo</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaEnderecos">
+                    <!-- Enderecos inseridos via JS -->
+                </tbody>
+            </table>
+
+            <!-- Modal de Endereco -->
+            <div class="modal fade" id="enderecoModal" tabindex="-1" aria-labelledby="EnderecoModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <form id="formEndereco" onsubmit="salvarEndereco(event)">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="EnderecoModalLabel">Editar Endereço</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Fechar"></button>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" id="enderecoId">
+                                <div class="mb-3">
+                                    <label for="cliente" class="form-label">Cliente</label>
+                                    <input type="text" class="form-control" id="cliente" readonly disabled>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="logradouro" class="form-label">Logradouro</label>
+                                    <input type="text" class="form-control" id="logradouro" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cidade" class="form-label">Cidade</label>
+                                    <input type="text" class="form-control" id="cidade" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="estado" class="form-label">Estado</label>
+                                    <select id="estado" class="form-select" required>
+                                        <option selected>Escolha</option>
+                                        <option value="AC">Acre</option>
+                                        <option value="AL">Alagoas</option>
+                                        <option value="AP">Amapá</option>
+                                        <option value="AM">Amazonas</option>
+                                        <option value="BA">Bahia</option>
+                                        <option value="CE">Ceará</option>
+                                        <option value="DF">Distrito Federal</option>
+                                        <option value="ES">Espírito Santo</option>
+                                        <option value="GO">Goiás</option>
+                                        <option value="MA">Maranhão</option>
+                                        <option value="MT">Mato Grosso</option>
+                                        <option value="MS">Mato Grosso do Sul</option>
+                                        <option value="MG">Minas Gerais</option>
+                                        <option value="PA">Pará</option>
+                                        <option value="PB">Paraíba</option>
+                                        <option value="PR">Paraná</option>
+                                        <option value="PE">Pernambuco</option>
+                                        <option value="PI">Piauí</option>
+                                        <option value="RJ">Rio de Janeiro</option>
+                                        <option value="RN">Rio Grande do Norte</option>
+                                        <option value="RS">Rio Grande do Sul</option>
+                                        <option value="RO">Rondônia</option>
+                                        <option value="RR">Roraima</option>
+                                        <option value="SC">Santa Catarina</option>
+                                        <option value="SP">São Paulo</option>
+                                        <option value="SE">Sergipe</option>
+                                        <option value="TO">Tocantins</option>
+                                        <option value="EX">Estrangeiro</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cep" class="form-label">CEP</label>
+                                    <input type="text" class="form-control" id="cep" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="tipo" class="form-label">Tipo</label>
+                                    <select id="tipo" class="form-select" required>
+                                        <option value="Entrega">Endereço de Entrega</option>
+                                        <option value="Cobranca">Endereço de Cobrança</option>
+                                        <option value="Ambos">Ambos(Entrega e Cobrança)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-success">Salvar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap & Script -->
+    <script src="static/scripts/sidebar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"
+        integrity="sha512-uMtXmF28A2Ab/JJO2t/vYhlaa/3ahUOgj1Zf27M5rOo8/+fcTUVH0/E0ll68njmjrLqOBjXM3V9NiPFL5ywWPQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        let clientes = [];
+        let idEdicao = null;
+        atualizarTabela();
+
+        function mostrarMensagem(msg) {
+            const alerta = document.getElementById('alerta');
+            alerta.innerText = msg;
+            alerta.classList.remove('d-none');
+
+            setTimeout(() => {
+                alerta.classList.add('d-none');
+            }, 3000); // 3 segundos
+        }
+
+        function atualizarTabela() {
+            $.ajax({
+                url: 'http://localhost:8080/clientes/0',
+                method: 'get'
+            }).done(function (resposta) {// Trata o retorno da requisição
+                clientes = resposta;
+                montaTabela(resposta);
+            }).fail(function (error) {
+                console.log("Erro buscar." + error);
+            });
+        }
+
+        function montaTabela(dados) {
+            const corpoTabela = document.getElementById('tabelaEnderecos');
+            corpoTabela.innerHTML = '';
+            dados.forEach(cliente => {
+                if (cliente.enderecos) {
+                    corpoTabela.innerHTML += `
+        <tr>
+          <td>${cliente.nome}</td>
+          <td>${cliente.enderecos[0].logradouro}</td>
+          <td>${cliente.enderecos[0].cidade.nome}</td>
+          <td>${cliente.enderecos[0].cidade.estado.nome}</td>
+          <td>${cliente.enderecos[0].cep}</td>
+          <td>${cliente.enderecos[0].tipo}</td>
+          <td>
+            <button class="btn btn-sm btn-warning me-2" onclick="editarEndereco(${cliente.id})">Editar</button>
+            <button class="btn btn-sm btn-danger" onclick="excluirEndereco(${cliente.id})">Excluir</button>
+          </td>
+        </tr>
+      `;
+                }
+            });
+        }
+
+        async function salvarEndereco(event) {
+            event.preventDefault();
+
+            const logradouro = document.getElementById('logradouro').value;
+            const cidade = document.getElementById('cidade').value;
+            const cep = document.getElementById('cep').value;
+            const estado = document.getElementById('estado').value;
+            const tipo = document.getElementById('tipo').value;
+
+            // Editar endereço cliente existente
+            const cliente = clientes.find(c => Number(c.id) === Number(idEdicao));
+            cliente.enderecos[0].logradouro = logradouro;
+            cliente.enderecos[0].cep = cep;
+            cliente.enderecos[0].tipo = tipo;
+            cliente.enderecos[0].cidade.nome = cidade;
+            cliente.enderecos[0].cidade.estado.nome = estado;
+
+            $.ajax({
+                url: 'http://localhost:8080/clientes/atualizar/' + idEdicao,
+                method: 'put',
+                data: JSON.stringify(cliente),
+                processData: false,
+                contentType: 'application/json',
+                dataType: 'text'
+            }).done(function (resposta) {// Trata o retorno da requisição
+                mostrarMensagem(resposta);
+            }).fail(function (error) {
+                console.log("Erro atualizar." + error);
+            });
+
+            const modal = bootstrap.Modal.getInstance(document.getElementById('enderecoModal'));
+            modal.hide();
+            atualizarTabela();
+        }
+
+        function editarEndereco(id) {
+            const cliente = clientes.find(c => Number(c.id) === Number(id));
+            document.getElementById('enderecoId').value = cliente.enderecos[0].id;
+            document.getElementById('cliente').value = cliente.nome;
+            document.getElementById('logradouro').value = cliente.enderecos[0].logradouro;
+            document.getElementById('cep').value = cliente.enderecos[0].cep;
+            document.getElementById('tipo').value = cliente.enderecos[0].tipo;
+            document.getElementById('cidade').value = cliente.enderecos[0].cidade.nome;
+            document.getElementById('estado').value = cliente.enderecos[0].cidade.estado.nome;
+            idEdicao = id;
+
+            const modal = new bootstrap.Modal(document.getElementById('enderecoModal'));
+            modal.show();
+        }
+
+        function excluirEndereco(id) {
+            if (confirm('Deseja realmente desativar este endereço?')) {
+                $.ajax({
+                    url: 'http://localhost:8080/clientes/enderecos/' + id,
+                    method: 'delete'
+                }).done(function () {// Trata o retorno da requisição
+                    mostrarMensagem("Endereço do cliente desativado");
+                    clientes = clientes.filter(c => c.id !== id);
+                    atualizarTabela();
+                }).fail(function (error) {
+                    console.log("Erro deletar." + error);
+                });
+            }
+        }
+
+    </script>
+
+</html>
