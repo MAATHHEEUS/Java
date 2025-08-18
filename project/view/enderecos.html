@@ -246,13 +246,13 @@
                 dataType: 'text'
             }).done(function (resposta) {// Trata o retorno da requisição
                 mostrarMensagem(resposta);
+                atualizarTabela();
             }).fail(function (error) {
                 console.log("Erro atualizar." + error);
             });
 
             const modal = bootstrap.Modal.getInstance(document.getElementById('enderecoModal'));
             modal.hide();
-            atualizarTabela();
         }
 
         function editarEndereco(id) {
