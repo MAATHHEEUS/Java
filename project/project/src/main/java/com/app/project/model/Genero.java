@@ -1,16 +1,14 @@
 package com.app.project.model;
 
-public class Cidade extends Entidade{
+public class Genero extends Entidade{
     private String nome;
-    private Estado estado;
     private Status status;
 
     // Construtor
-    public Cidade(String nome, Status status, Estado estado) {
+    public Genero(String nome, Status status) {
         super.id = "0";
         super.dataCad = "";
         this.nome = nome;
-        this.estado = estado;
         this.status = status;
     }
 
@@ -31,14 +29,6 @@ public class Cidade extends Entidade{
         this.dataCad = dtCad;
     }
 
-    public Status getStatus() {
-        return this.status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -47,11 +37,11 @@ public class Cidade extends Entidade{
         this.nome = nome;
     }
 
-    public Estado getEstado() {
-        return estado;
+    public Status getStatus() {
+        return this.status;
     }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

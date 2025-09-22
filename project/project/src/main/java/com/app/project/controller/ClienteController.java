@@ -34,7 +34,7 @@ public class ClienteController {
 
     @GetMapping("/{id}")
     public List<Entidade> listarClientes(@PathVariable String id) {
-        Cliente cliente = new Cliente(id, null, null, null, null, null);
+        Cliente cliente = new Cliente(id, null, null, null, null, null, null, null, null, null, null, null, null);
         return facade.listarClientes(cliente);
     }
 
@@ -46,13 +46,13 @@ public class ClienteController {
 
     @DeleteMapping("/remover/{id}")
     public void deletarCliente(@PathVariable String id) {
-        Cliente cliente = new Cliente(id, null, null, null, null, null);
+        Cliente cliente = new Cliente(id, null, null, null, null, null, null, null, null, null, null, null, null);
         facade.removerCliente(cliente);
     }
 
     @DeleteMapping("/enderecos/{id}")
     public void deletarEndereco(@PathVariable String id) {
-        Cliente cliente = new Cliente(id, null, null, null, null, null);
+        Cliente cliente = new Cliente(id, null, null, null, null, null, null, null, null, null, null, null, null);
         facade.removerEndereco(cliente);
     }
 }

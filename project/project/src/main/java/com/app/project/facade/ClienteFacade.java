@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ClienteFacade {
-    private final ClienteDAO clienteDAO = new ClienteDAO();
+    @Autowired
+    private ClienteDAO clienteDAO;
     private final List<IValidador> validadores = new ArrayList<>();
 
     @Autowired

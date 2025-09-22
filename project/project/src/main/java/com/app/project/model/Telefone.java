@@ -1,27 +1,20 @@
 package com.app.project.model;
 
-public class Endereco extends Entidade {
-    private String logradouro;
-    private String nome;
+public class Telefone extends Entidade{
     private String numero;
-    private String bairro;
-    private String cep;
+    private String ddd;
     private String tipo;
-    private Cidade cidade;
     private Status status;
     private int clienteId;
 
     // Construtor
-    public Endereco(String logradouro, String nome, String numero, String bairro, String cep, Cidade cidade, String tipo, Status status, int clienteId) {
+    public Telefone(String numero, String ddd, String tipo, Status status, int clienteId) {
         super.id = "0";
         super.dataCad = "";
-        this.logradouro = logradouro;
-        this.nome = nome;
         this.numero = numero;
-        this.bairro = bairro;
-        this.cep = cep;
-        this.cidade = cidade;
+        this.ddd = ddd;
         this.tipo = tipo;
+        this.status = status;
         this.clienteId = clienteId;
     }
 
@@ -42,22 +35,6 @@ public class Endereco extends Entidade {
         this.dataCad = dtCad;
     }
 
-    public String getLogradouro() {
-        return logradouro;
-    }
-
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public String getNumero() {
         return numero;
     }
@@ -66,28 +43,12 @@ public class Endereco extends Entidade {
         this.numero = numero;
     }
 
-    public String getBairro() {
-        return bairro;
+    public String getDDD() {
+        return ddd;
     }
 
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
-
-    public Cidade getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(Cidade cidade) {
-        this.cidade = cidade;
+    public void setDDD(String ddd) {
+        this.ddd = ddd;
     }
 
     public String getTipo() {
