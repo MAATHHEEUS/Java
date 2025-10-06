@@ -21,6 +21,7 @@ public class Endereco extends Entidade {
         this.bairro = bairro;
         this.cep = cep;
         this.cidade = cidade;
+        this.status = status;
         this.tipo = tipo;
         this.clienteId = clienteId;
     }

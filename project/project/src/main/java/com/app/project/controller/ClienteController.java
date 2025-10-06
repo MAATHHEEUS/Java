@@ -45,14 +45,15 @@ public class ClienteController {
     }
 
     @DeleteMapping("/remover/{id}")
-    public void deletarCliente(@PathVariable String id) {
+    public String deletarCliente(@PathVariable String id) {
         Cliente cliente = new Cliente(id, null, null, null, null, null, null, null, null, null, null, null, null);
-        facade.removerCliente(cliente);
+        return facade.removerCliente(cliente);
     }
 
-    @DeleteMapping("/enderecos/{id}")
-    public void deletarEndereco(@PathVariable String id) {
-        Cliente cliente = new Cliente(id, null, null, null, null, null, null, null, null, null, null, null, null);
-        facade.removerEndereco(cliente);
+    @PutMapping("/senha/{id}")
+    public String atulizarSenha(@PathVariable String id, @RequestBody String senha){
+        senha = senha.replaceAll("\\\"", ""); // Tirar as aspas
+        Cliente cliente = new Cliente(id, null, null, null, null, null, null, null, senha, null, null, null, null);
+        return facade.atualizarSenha(cliente);
     }
 }

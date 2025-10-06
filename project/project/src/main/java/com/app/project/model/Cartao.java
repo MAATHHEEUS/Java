@@ -17,6 +17,7 @@ public class Cartao extends Entidade{
         this.nome = nome;
         this.tipo = tipo;
         this.cvv = cvv;
+        this.bandeira = bandeira;
         this.status = status;
         this.clienteId = clienteId;
     }

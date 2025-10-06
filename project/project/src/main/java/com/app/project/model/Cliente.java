@@ -122,7 +122,7 @@ public class Cliente extends Entidade {
         this.telefones = telefones;
     }
 
-    public List<Cartao> getcartoes() {
+    public List<Cartao> getCartoes() {
         return this.cartoes;
     }
 
