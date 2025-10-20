@@ -33,7 +33,7 @@ public class TelefoneController {
     }
 
     @GetMapping("/{id}")
-    public List<Entidade> listarCartoes(@PathVariable String id, @RequestBody String clienteId) {
+    public List<Entidade> listarTelefones(@PathVariable String id, @RequestBody String clienteId) {
         clienteId = clienteId.replaceAll("\\\"", ""); // Tirar as aspas
 
         Telefone telefone = new Telefone(null, null, null, null, Integer.parseInt(clienteId));

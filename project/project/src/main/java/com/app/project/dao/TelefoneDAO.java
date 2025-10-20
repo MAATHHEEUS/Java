@@ -23,7 +23,7 @@ public class TelefoneDAO implements IDAO {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // Mapeia o resultado do banco para objeto Cartao
+    // Mapeia o resultado do banco para objeto Telefone
     private RowMapper<Telefone> telefoneMapper = new RowMapper<>() {
         @Override
         public Telefone mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -39,7 +39,7 @@ public class TelefoneDAO implements IDAO {
     public void salvar(Entidade entidade) {
         Telefone telefone = (Telefone) entidade;
 
-        // Salva um status para o cartão
+        // Salva um status para o telefone
         String sqlStatus = "INSERT INTO `Status`(`nome_status`) VALUES (?)";
 
         // Usa KeyHolder para capturar o ID gerado
@@ -54,7 +54,7 @@ public class TelefoneDAO implements IDAO {
         // Armazena o ID gerado no objeto
         String idStatus = String.valueOf(keyHolder.getKey().intValue());
 
-        // Salva o cartao
+        // Salva o telefone
         String sql = "INSERT INTO `Telefone` (`numero_telefone`, `DDD_telefone`, `tipo_telefone`, `cliente_telefone`, `status_telefone`) VALUES (?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(sql, telefone.getNumero(), telefone.getDDD(), telefone.getTipo(), telefone.getClienteId(), idStatus);
@@ -66,7 +66,7 @@ public class TelefoneDAO implements IDAO {
 
         List<Telefone> telefones;
 
-        // Se o cartao tem ID, busca por ID
+        // Se o telefone tem ID, busca por ID
         if (telefone.getId() != null && !telefone.getId().equals("0") && !telefone.getId().isEmpty()) {
             telefones = jdbcTemplate.query(
                     "SELECT t.id_telefone, t.numero_telefone, t.DDD_telefone, t.tipo_telefone, t.cliente_telefone, s.nome_status FROM `Telefone` t JOIN `Status` s ON s.id_status = t.status_telefone WHERE t.id_telefone = ?",
