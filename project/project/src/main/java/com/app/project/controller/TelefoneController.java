@@ -48,7 +48,7 @@ public class TelefoneController {
     }
 
     @DeleteMapping("/remover/{id}")
-    public String deletartelefone(@PathVariable String id) {
+    public String deletarTelefone(@PathVariable String id) {
         Telefone telefone = new Telefone(null, null, null, null, 0);
         telefone.setId(id);
         return facade.removerTelefone(telefone);
