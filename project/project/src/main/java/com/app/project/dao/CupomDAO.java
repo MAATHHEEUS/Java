@@ -58,6 +58,9 @@ public class CupomDAO implements IDAO {
         String sql = "INSERT INTO `Cupom` (`codigo_cupom`, `validade_cupom`, `valor_cupom`, `cliente_cupom`, `status_cupom`) VALUES (?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(sql, cupom.getCodigo(), cupom.getValidade(), cupom.getValor(), cupom.getClienteId(), idStatus);
+
+        String descricao = "SALVAR;"+cupom.getClass()+";";
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -88,6 +91,9 @@ public class CupomDAO implements IDAO {
 
         String sql = "UPDATE `Cupom` SET `codigo_cupom` = ?, `validade_cupom` = ?, `valor_cupom` = ? WHERE id_cupom = ?";
         jdbcTemplate.update(sql, cupom.getCodigo(), cupom.getValidade(), cupom.getValor(), cupom.getId());
+
+        String descricao = "ATUALIZAR;"+cupom.getClass()+";ID:"+cupom.getId();
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -109,5 +115,8 @@ public class CupomDAO implements IDAO {
 
         String sql = "UPDATE `Status` SET `nome_status` = ?, `motivo_status` = ? WHERE id_status = ?";
         jdbcTemplate.update(sql, nome, motivo, idStatus);
+
+        String descricao = "INATIVAR;"+cupom.getClass()+";ID:"+cupom.getId();
+        log(descricao, jdbcTemplate);
     }
 }

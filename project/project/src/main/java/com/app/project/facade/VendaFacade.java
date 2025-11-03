@@ -14,6 +14,7 @@ import com.app.project.dao.VendaDAO;
 import com.app.project.model.Entidade;
 import com.app.project.model.Pagamento;
 import com.app.project.model.ProdutoVenda;
+import com.app.project.model.Status;
 import com.app.project.model.Venda;
 import com.app.project.strategy.IValidador;
 
@@ -99,6 +100,27 @@ public class VendaFacade {
         } catch (Exception e) {
             e.printStackTrace();
             return "Erro ao inativar venda: " + e.getMessage();
+        }
+    }
+
+    public String atualizarStatus(Venda venda, Status status){
+        try {
+            vendaDAO.atualizarStatus(venda, status);
+            return "Status da venda alterado com sucesso!";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Erro ao alterar status da venda: " + e.getMessage();
+        }
+    }
+
+    public String atualizarItemVenda(ProdutoVenda pv){
+        try {
+            pvDAO.atualizar(pv);
+            pvDAO.atualizarStatus(pv);
+            return "Item da venda alterado com sucesso!";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Erro ao alterar item da venda: " + e.getMessage();
         }
     }
 }

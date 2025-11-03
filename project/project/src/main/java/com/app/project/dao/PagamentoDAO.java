@@ -59,6 +59,9 @@ public class PagamentoDAO implements IDAO {
         String sql = "INSERT INTO `Pagamento` (`valor_pagamento`, `dados_pagamento`, `venda_pagamento`, `tipo_pagamento`, `status_pagamento`) VALUES (?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(sql, pagamento.getValor(), pagamento.getDados(), pagamento.getVendaId(), pagamento.getTipo().getNome(), idStatus);
+
+        String descricao = "SALVAR;"+pagamento.getClass()+";";
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -70,13 +73,13 @@ public class PagamentoDAO implements IDAO {
         // Se o pagamento tem ID, busca por ID
         if (pagamento.getId() != null && !pagamento.getId().equals("0") && !pagamento.getId().isEmpty()) {
             pagamentos = jdbcTemplate.query(
-                    "",
+                    "SELECT `id_pagamento`, `valor_pagamento`, `dados_pagamento`, `venda_pagamento`, `tipo_pagamento`, `nome_status` FROM `Pagamento` p JOIN `Status` s ON s.id_status = p.status_pagamento WHERE `id_pagamento` = ?",
                     PagamentoMapper,
                     pagamento.getId());
         } else {
             // Caso contrário, retorna todos da venda
             pagamentos = jdbcTemplate.query(
-                "",
+                "SELECT `id_pagamento`, `valor_pagamento`, `dados_pagamento`, `venda_pagamento`, `tipo_pagamento`, `nome_status` FROM `Pagamento` p JOIN `Status` s ON s.id_status = p.status_pagamento WHERE `venda_pagamento` = ?",
                 PagamentoMapper, pagamento.getVendaId());
         }
 
@@ -85,10 +88,6 @@ public class PagamentoDAO implements IDAO {
 
     @Override
     public void atualizar(Entidade entidade) {
-        Pagamento pagamento = (Pagamento) entidade;
-
-        String sql = "UPDATE `Pagamento` SET WHERE id_pagamento = ?";
-        jdbcTemplate.update(sql, pagamento.getId());
     }
 
     @Override
@@ -110,5 +109,8 @@ public class PagamentoDAO implements IDAO {
 
         String sql = "UPDATE `Status` SET `nome_status` = ?, `motivo_status` = ? WHERE id_status = ?";
         jdbcTemplate.update(sql, nome, motivo, idStatus);
+
+        String descricao = "INATIVAR;"+pagamento.getClass()+";ID:"+pagamento.getId();
+        log(descricao, jdbcTemplate);
     }
 }

@@ -58,6 +58,9 @@ public class TelefoneDAO implements IDAO {
         String sql = "INSERT INTO `Telefone` (`numero_telefone`, `DDD_telefone`, `tipo_telefone`, `cliente_telefone`, `status_telefone`) VALUES (?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(sql, telefone.getNumero(), telefone.getDDD(), telefone.getTipo(), telefone.getClienteId(), idStatus);
+
+        String descricao = "SALVAR;" + telefone.getClass() + ";";
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -88,6 +91,9 @@ public class TelefoneDAO implements IDAO {
 
         String sql = "UPDATE `Telefone` SET `numero_telefone` = ?, `DDD_telefone` = ?, `tipo_telefone` = ? WHERE id_telefone = ?";
         jdbcTemplate.update(sql, tel.getNumero(), tel.getDDD(), tel.getTipo(), tel.getId());
+
+        String descricao = "ATUALIZAR;" + tel.getClass() + ";ID:" + tel.getId();
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -109,5 +115,8 @@ public class TelefoneDAO implements IDAO {
 
         String sql = "UPDATE `Status` SET `nome_status` = ?, `motivo_status` = ? WHERE id_status = ?";
         jdbcTemplate.update(sql, nome, motivo, idStatus);
+
+        String descricao = "INATIVAR;"+tel.getClass()+";ID:"+tel.getId();
+        log(descricao, jdbcTemplate);
     }
 }

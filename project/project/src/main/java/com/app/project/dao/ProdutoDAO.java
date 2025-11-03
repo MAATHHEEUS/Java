@@ -43,7 +43,8 @@ public class ProdutoDAO implements IDAO {
 
             Produto produto = new Produto(rs.getString("nome_produto"), rs.getString("desc_produto"),
                     rs.getString("preco_produto"), rs.getString("peso_produto"), rs.getString("tamanho_produto"),
-                    rs.getString("referencia_produto"), status, categoria, marca, linha, genero, embalagem, desconto, null, null, null, null);
+                    rs.getString("referencia_produto"), status, categoria, marca, linha, genero, embalagem, desconto,
+                    null, null, null, null);
 
             return produto;
         }
@@ -79,6 +80,9 @@ public class ProdutoDAO implements IDAO {
 
         // Armazena o ID gerado no objeto
         produto.setId(String.valueOf(keyHolder.getKey().intValue()));
+
+        String descricao = "SALVAR;" + produto.getClass() + ";";
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -94,7 +98,9 @@ public class ProdutoDAO implements IDAO {
                     produto.getId());
         } else {
             // Caso contrário, retorna todos
-            produtos = jdbcTemplate.query("SELECT id_produto, nome_produto, preco_produto, desc_produto, marca_produto, peso_produto, tamanho_produto, genero_produto, linha_produto, categoria_produto, referencia_produto, embalagem_produto, desconto_produto, s.nome_status FROM `Produto` p JOIN `Status` s ON p.status_produto = s.id_status", produtoMapper);
+            produtos = jdbcTemplate.query(
+                    "SELECT id_produto, nome_produto, preco_produto, desc_produto, marca_produto, peso_produto, tamanho_produto, genero_produto, linha_produto, categoria_produto, referencia_produto, embalagem_produto, desconto_produto, s.nome_status FROM `Produto` p JOIN `Status` s ON p.status_produto = s.id_status",
+                    produtoMapper);
         }
 
         return (List<Entidade>) (List<?>) produtos;
@@ -119,6 +125,9 @@ public class ProdutoDAO implements IDAO {
                 produto.getEmbalagem().getNome(),
                 Integer.toString(produto.getDesconto().getPorcentagem()),
                 produto.getId());
+
+        String descricao = "ATUALIZAR;" + produto.getClass() + ";ID:" + produto.getId();
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -140,5 +149,8 @@ public class ProdutoDAO implements IDAO {
 
         String sql = "UPDATE `Status` SET `nome_status` = ?, `motivo_status` = ? WHERE id_status = ?";
         jdbcTemplate.update(sql, nome, motivo, idStatus);
+
+        String descricao = "INATIVAR;"+produto.getClass()+";ID:"+produto.getId();
+        log(descricao, jdbcTemplate);
     }
 }

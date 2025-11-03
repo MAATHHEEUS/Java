@@ -37,6 +37,9 @@ public class ImagemDAO implements IDAO  {
         String sql = "INSERT INTO `Imagem` (`textoAlt_imagem`, `caminho_imagem`, `produto_imagem`) VALUES (?, ?, ?)";
 
         jdbcTemplate.update(sql, imagem.getTextoAlt(), imagem.getCaminho(), imagem.getProdutoId());
+
+        String descricao = "SALVAR;"+imagem.getClass()+";";
+        log(descricao, jdbcTemplate);
     }
 
     public void salvarImagens(List<Imagem> imagens, int produtoId){
@@ -74,6 +77,9 @@ public class ImagemDAO implements IDAO  {
 
         String sql = "UPDATE `Imagem` SET `textoAlt_imagem` = ?, `caminho_imagem` = ? WHERE id_imagem = ?";
         jdbcTemplate.update(sql, imagem.getTextoAlt(), imagem.getCaminho(), imagem.getId());
+
+        String descricao = "ATUALIZAR;"+imagem.getClass()+";ID:"+imagem.getId();
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -82,5 +88,8 @@ public class ImagemDAO implements IDAO  {
 
         String sql = "DELETE FROM `Imagem` WHERE id_imagem = ?";
         jdbcTemplate.update(sql, imagem.getId());
+
+        String descricao = "EXCLUSÃO;"+imagem.getClass()+";ID:"+imagem.getId();
+        log(descricao, jdbcTemplate);
     }
 }

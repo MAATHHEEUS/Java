@@ -64,6 +64,9 @@ public class EnderecoDAO implements IDAO {
         String sql = "INSERT INTO `Endereco` (`logradouro_endereco`, `nome_endereco`, `numero_endereco`, `cep_endereco`, `bairro_endereco`, `tipo_endereco`, `cidade_endereco`, `cliente_endereco`, `status_endereco`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(sql, endereco.getLogradouro(), endereco.getNome(), endereco.getNumero(), endereco.getCep(), endereco.getBairro(), endereco.getTipo(), idCidade, endereco.getClienteId(), idStatus);
+
+        String descricao = "SALVAR;"+endereco.getClass()+";";
+        log(descricao, jdbcTemplate);
     }
 
     // Método usado para salvar mais de um endereço no cliente
@@ -105,6 +108,9 @@ public class EnderecoDAO implements IDAO {
 
         String sql = "UPDATE `Endereco` SET `logradouro_endereco` = ?, `nome_endereco` = ?, `numero_endereco` = ?, `cep_endereco` = ?, `bairro_endereco` = ?, `tipo_endereco` = ?, `cidade_endereco` = ? WHERE id_endereco = ?";
         jdbcTemplate.update(sql, endereco.getLogradouro(), endereco.getNome(), endereco.getNumero(), endereco.getCep(), endereco.getBairro(), endereco.getTipo(), idCidade, endereco.getId());
+
+        String descricao = "ATUALIZAR;"+endereco.getClass()+";ID:"+endereco.getId();
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -126,6 +132,9 @@ public class EnderecoDAO implements IDAO {
 
         String sql = "UPDATE `Status` SET `nome_status` = ?, `motivo_status` = ? WHERE id_status = ?";
         jdbcTemplate.update(sql, nome, motivo, idStatus);
+
+        String descricao = "INATIVAR;"+endereco.getClass()+";ID:"+endereco.getId();
+        log(descricao, jdbcTemplate);
     }
 
     // Se não houver a cidade no estado salva uma nova
@@ -151,6 +160,9 @@ public class EnderecoDAO implements IDAO {
             ps.setString(2, estado);
             return ps;
         }, keyHolder);
+
+        String descricao = "SALVAR;CIDADE:"+nome+";UF:"+estado;
+        log(descricao, jdbcTemplate);
 
         return keyHolder.getKey().intValue();
     }

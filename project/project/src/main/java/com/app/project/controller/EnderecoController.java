@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -33,7 +34,7 @@ public class EnderecoController {
     }
 
     @GetMapping("/{id}")
-    public List<Entidade> listarEnderecos(@PathVariable String id, @RequestBody String clienteId) {
+    public List<Entidade> listarEnderecos(@PathVariable String id, @RequestParam String clienteId) {
         clienteId = clienteId.replaceAll("\\\"", ""); // Tirar as aspas
 
         Endereco endereco = new Endereco(null, null, null, null, null, null, null, null, Integer.parseInt(clienteId));

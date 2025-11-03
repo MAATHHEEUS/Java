@@ -38,11 +38,10 @@ public class ClienteFacade {
     @Autowired
     public ClienteFacade() {
         validadores.add(new ValidacaoNome());
-        /*
-         * validadores.add(new ValidacaoEmail());
-         * validadores.add(new ValidacaoTelefone());
-         * validadores.add(new ValidacaoCPF());
-         */
+        validadores.add(new ValidacaoEmail());
+        validadores.add(new ValidacaoCPF());
+        validadores.add(new ValidacaoSenha());
+        validadores.add(new ValidacaoNascimento());
     }
 
     public String cadastrarCliente(Cliente cliente) {
@@ -98,6 +97,10 @@ public class ClienteFacade {
     }
 
     public String atualizarSenha(Cliente cliente) {
+        IValidador validador = new ValidacaoSenha();
+        if (validador.validar(cliente) != "") {
+            return "Falha na validação: " + validador.validar(cliente);
+        }
         clienteDAO.atualizarSenha(cliente);
         return "Senha atualizada";
     }

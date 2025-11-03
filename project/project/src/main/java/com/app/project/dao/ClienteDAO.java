@@ -63,6 +63,9 @@ public class ClienteDAO implements IDAO {
 
         // Armazena o ID gerado no objeto
         cliente.setId(String.valueOf(keyHolder.getKey().intValue()));
+
+        String descricao = "SALVAR;"+cliente.getClass()+";";
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -96,6 +99,9 @@ public class ClienteDAO implements IDAO {
         if (cliente.getSenha() != "") {
             atualizarSenha(cliente);
         }
+
+        String descricao = "ATUALIZAR;"+cliente.getClass()+";ID:"+cliente.getId();
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -117,10 +123,16 @@ public class ClienteDAO implements IDAO {
 
         String sql = "UPDATE `Status` SET `nome_status` = ?, `motivo_status` = ? WHERE id_status = ?";
         jdbcTemplate.update(sql, nome, motivo, idStatus);
+
+        String descricao = "INATIVAR;"+cliente.getClass()+";ID:"+cliente.getId();
+        log(descricao, jdbcTemplate);
     }
 
     public void atualizarSenha(Cliente cliente) {
         String sql = "UPDATE `Cliente` SET `senha_cliente` = ? WHERE id_cliente = ?";
         jdbcTemplate.update(sql, cliente.getSenha(), cliente.getId());
+
+        String descricao = "ATUALIZAR SENHA;"+cliente.getClass()+";ID:"+cliente.getId();
+        log(descricao, jdbcTemplate);
     }
 }

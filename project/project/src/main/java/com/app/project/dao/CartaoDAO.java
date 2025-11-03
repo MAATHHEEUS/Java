@@ -60,6 +60,9 @@ public class CartaoDAO implements IDAO {
         String sql = "INSERT INTO `Cartao` (`numero_cartao`, `nome_cartao`, `tipo_cartao`, `cvv_cartao`, `cliente_cartao`, `bandeira_cartao`, `status_cartao`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         jdbcTemplate.update(sql, cartao.getNumero(), cartao.getNome(), cartao.getTipo(), cartao.getCVV(), cartao.getClienteId(), cartao.getBandeira().getNome(), idStatus);
+
+        String descricao = "SALVAR;"+cartao.getClass()+";";
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -90,6 +93,9 @@ public class CartaoDAO implements IDAO {
 
         String sql = "UPDATE `Cartao` SET `numero_cartao` = ?, `nome_cartao` = ?, `tipo_cartao` = ?, `cvv_cartao` = ?, `bandeira_cartao` = ? WHERE id_cartao = ?";
         jdbcTemplate.update(sql, cartao.getNumero(), cartao.getNome(), cartao.getTipo(), cartao.getCVV(), cartao.getBandeira().getNome(), cartao.getId());
+
+        String descricao = "ATUALIZAR;"+cartao.getClass()+";ID:"+cartao.getId();
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -111,5 +117,8 @@ public class CartaoDAO implements IDAO {
 
         String sql = "UPDATE `Status` SET `nome_status` = ?, `motivo_status` = ? WHERE id_status = ?";
         jdbcTemplate.update(sql, nome, motivo, idStatus);
+
+        String descricao = "INATIVAR;"+cartao.getClass()+";ID:"+cartao.getId();
+        log(descricao, jdbcTemplate);
     }
 }

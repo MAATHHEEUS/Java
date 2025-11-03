@@ -8,7 +8,7 @@ public class Estado extends Entidade{
 
     // Construtor
     public Estado(String uf, String nome, Status status, Pais pais){
-        this.id = "0";
+        super.id = "0";
         super.dataCad = "";
         this.uf = uf;
         this.nome = nome;

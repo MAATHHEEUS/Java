@@ -57,6 +57,9 @@ public class ProdutoVendaDAO implements IDAO {
         String sql = "INSERT INTO `ProdutoVenda` (`quantidade_prodvenda`, `produto_prodvenda`, `venda_prodvenda`, `status_prodvenda`) VALUES (?, ?, ?, ?)";
 
         jdbcTemplate.update(sql, pv.getQuantidade(), pv.getProdutoId(), pv.getVendaId(), idStatus);
+
+        String descricao = "SALVAR;" + pv.getClass() + ";";
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -68,13 +71,13 @@ public class ProdutoVendaDAO implements IDAO {
         // Se o Produto venda tem ID, busca por ID
         if (pv.getId() != null && !pv.getId().equals("0") && !pv.getId().isEmpty()) {
             pvs = jdbcTemplate.query(
-                    "",
+                    "SELECT `id_prodvenda`, `quantidade_prodvenda`, `produto_prodvenda`, `venda_prodvenda`, `nome_status` FROM `ProdutoVenda` pv JOIN `Status` s ON s.id_status = pv.status_prodvenda WHERE `id_prodvenda` = ?",
                     pvMapper,
                     pv.getId());
         } else {
             // Caso contrário, retorna todos da venda
             pvs = jdbcTemplate.query(
-                "",
+                "SELECT `id_prodvenda`, `quantidade_prodvenda`, `produto_prodvenda`, `venda_prodvenda`, `nome_status` FROM `ProdutoVenda` pv JOIN `Status` s ON s.id_status = pv.status_prodvenda WHERE `venda_prodvenda` = ?",
                 pvMapper, pv.getVendaId());
         }
 
@@ -85,8 +88,11 @@ public class ProdutoVendaDAO implements IDAO {
     public void atualizar(Entidade entidade) {
         ProdutoVenda pv = (ProdutoVenda) entidade;
 
-        String sql = "UPDATE `ProdutoVenda` SET WHERE id_pagamento = ?";
-        jdbcTemplate.update(sql, pv.getId());
+        String sql = "UPDATE `ProdutoVenda` SET `quantidade_prodvenda` = ? WHERE id_prodvenda = ?";
+        jdbcTemplate.update(sql, pv.getQuantidade(), pv.getId());
+
+        String descricao = "ATUALIZAR;" + pv.getClass() + ";ID:" + pv.getId();
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -108,5 +114,29 @@ public class ProdutoVendaDAO implements IDAO {
 
         String sql = "UPDATE `Status` SET `nome_status` = ?, `motivo_status` = ? WHERE id_status = ?";
         jdbcTemplate.update(sql, nome, motivo, idStatus);
+
+        String descricao = "INATIVAR;"+pv.getClass()+";ID:"+pv.getId();
+        log(descricao, jdbcTemplate);
+    }
+
+    public void atualizarStatus(ProdutoVenda pv){
+        // Busca o id do status
+        String selectSql = "SELECT status_prodvenda FROM `ProdutoVenda` WHERE id_prodvenda = ?";
+        List<Integer> ids = jdbcTemplate.query(selectSql, new Object[] { pv.getId() },
+                (rs, rowNum) -> rs.getInt("status_prodvenda"));
+
+        int idStatus = 0;
+        if (!ids.isEmpty()) {
+            idStatus = ids.get(0);
+        }
+
+        String motivo = pv.getStatus().getMotivo();
+        String nome = pv.getStatus().getNome();
+
+        String sql = "UPDATE `Status` SET `nome_status` = ?, `motivo_status` = ? WHERE id_status = ?";
+        jdbcTemplate.update(sql, nome, motivo, idStatus);
+
+        String descricao = "ATUALIZAR STATUS;" + pv.getClass() + ";ID:" + pv.getId();
+        log(descricao, jdbcTemplate);
     }
 }

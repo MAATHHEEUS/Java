@@ -71,6 +71,9 @@ public class VendaDAO implements IDAO {
 
         // Armazena o ID gerado no objeto
         venda.setId(String.valueOf(keyHolder.getKey().intValue()));
+
+        String descricao = "SALVAR;" + venda.getClass() + ";";
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -101,6 +104,9 @@ public class VendaDAO implements IDAO {
 
         String sql = "UPDATE `Venda` SET `valor_venda` = ?, `entrega_venda` = ?,`faturamento_venda` = ?, `dtEntrega_venda` = ?, `frete_venda` = ?, `desconto_venda` = ? WHERE id_venda = ?";
         jdbcTemplate.update(sql, venda.getValor(), venda.getEnderecoEntrega(), venda.getEnderecoFaturamento(), venda.getDataEntrega(), venda.getFrete(), venda.getDesconto(),venda.getId());
+
+        String descricao = "ATUALIZAR;" + venda.getClass() + ";ID:" + venda.getId();
+        log(descricao, jdbcTemplate);
     }
 
     @Override
@@ -122,6 +128,30 @@ public class VendaDAO implements IDAO {
 
         String sql = "UPDATE `Status` SET `nome_status` = ?, `motivo_status` = ? WHERE id_status = ?";
         jdbcTemplate.update(sql, nome, motivo, idStatus);
+
+        String descricao = "INATIVAR;"+venda.getClass()+";ID:"+venda.getId();
+        log(descricao, jdbcTemplate);
+    }
+
+    public void atualizarStatus(Venda venda, Status status){
+        // Busca o id do status
+        String selectSql = "SELECT status_venda FROM `Venda` WHERE id_venda = ?";
+        List<Integer> ids = jdbcTemplate.query(selectSql, new Object[] { venda.getId() },
+                (rs, rowNum) -> rs.getInt("status_venda"));
+
+        int idStatus = 0;
+        if (!ids.isEmpty()) {
+            idStatus = ids.get(0);
+        }
+
+        String motivo = status.getMotivo();
+        String nome = status.getNome();
+
+        String sql = "UPDATE `Status` SET `nome_status` = ?, `motivo_status` = ? WHERE id_status = ?";
+        jdbcTemplate.update(sql, nome, motivo, idStatus);
+
+        String descricao = "ATUALIZAR STATUS;" + venda.getClass() + ";ID:" + venda.getId();
+        log(descricao, jdbcTemplate);
     }
     
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -33,7 +34,7 @@ public class ImagemController {
     }
 
     @GetMapping("/{id}")
-    public List<Entidade> listarImagens(@PathVariable String id, @RequestBody String produtoId) {
+    public List<Entidade> listarImagens(@PathVariable String id, @RequestParam String produtoId) {
         produtoId = produtoId.replaceAll("\\\"", ""); // Tirar as aspas
 
         Imagem imagem = new Imagem(null, null, null, Integer.parseInt(produtoId));
