@@ -45,6 +45,7 @@ public class ProdutoDAO implements IDAO {
                     rs.getString("preco_produto"), rs.getString("peso_produto"), rs.getString("tamanho_produto"),
                     rs.getString("referencia_produto"), status, categoria, marca, linha, genero, embalagem, desconto,
                     null, null, null, null);
+            produto.setId(Integer.toString(rs.getInt("id_produto")));
 
             return produto;
         }
@@ -150,7 +151,7 @@ public class ProdutoDAO implements IDAO {
         String sql = "UPDATE `Status` SET `nome_status` = ?, `motivo_status` = ? WHERE id_status = ?";
         jdbcTemplate.update(sql, nome, motivo, idStatus);
 
-        String descricao = "INATIVAR;"+produto.getClass()+";ID:"+produto.getId();
+        String descricao = "INATIVAR;" + produto.getClass() + ";ID:" + produto.getId();
         log(descricao, jdbcTemplate);
     }
 }
