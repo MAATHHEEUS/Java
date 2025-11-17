@@ -40,16 +40,16 @@ public class ProdMaterialController {
         return "Material salvo com sucesso!";
     }
 
-    @PutMapping("/atualizar/{id}")
-    public String atualizarMaterialProduto(@PathVariable String id, @RequestBody Material material){
-        prodMaterialDAO.atualizarMaterialProduto(Integer.parseInt(id), material);
+    @PutMapping("/atualizar/{produtoId},{oldMaterial}")
+    public String atualizarMaterialProduto(@PathVariable String produtoId, @PathVariable String oldMaterial, @RequestBody Material material){
+        prodMaterialDAO.atualizarMaterialProduto(Integer.parseInt(produtoId), Integer.parseInt(oldMaterial), material);
         
         return "Material atualizado!";
     }
 
-    @DeleteMapping("/remover/{id}")
-    public String deletarProdMaterial(@PathVariable String id) {
-        prodMaterialDAO.deletarMaterialProduto(Integer.parseInt(id));
+    @DeleteMapping("/remover/{produtoId},{material}")
+    public String deletarProdMaterial(@PathVariable String produtoId, @PathVariable String material) {
+        prodMaterialDAO.deletarMaterialProduto(Integer.parseInt(produtoId), Integer.parseInt(material));
         return "Material deletado do produto";
     }
     

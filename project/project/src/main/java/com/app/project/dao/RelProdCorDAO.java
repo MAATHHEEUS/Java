@@ -55,14 +55,14 @@ public class RelProdCorDAO {
 
     }
 
-    public void atualizarCorProduto(int idProdCor, Cor cor) {
-        String sql = "UPDATE `RelProdCor` SET `cor_prodcor` = ? WHERE `id_prodcor` = ?";
-        jdbcTemplate.update(sql, cor.getNome(), idProdCor);
+    public void atualizarCorProduto(int produtoId, int oldCor, Cor cor) {
+        String sql = "UPDATE `RelProdCor` SET `cor_prodcor` = ? WHERE `produto_prodcor` = ? AND cor_prodcor = ?";
+        jdbcTemplate.update(sql, cor.getNome(), produtoId, oldCor);
     }
 
-    public void deletarCorProduto(int idProdCor) {
-        String sql = "DELETE FROM `RelProdCor` WHERE id_prodcor = ?";
-        jdbcTemplate.update(sql, idProdCor);
+    public void deletarCorProduto(int produtoId, int cor) {
+        String sql = "DELETE FROM `RelProdCor` WHERE `produto_prodcor` = ? AND cor_prodcor = ?";
+        jdbcTemplate.update(sql, produtoId, cor);
     }
 
 }

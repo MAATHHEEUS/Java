@@ -55,13 +55,13 @@ public class RelProdMaterialDAO {
 
     }
 
-    public void atualizarMaterialProduto(int idProdMaterial, Material material) {
-        String sql = "UPDATE `RelProdMaterial` SET `material_prodmaterial` = ? WHERE `id_prodmaterial` = ?";
-        jdbcTemplate.update(sql, material.getNome(), idProdMaterial);
+    public void atualizarMaterialProduto(int produtoId, int oldMaterial, Material material) {
+        String sql = "UPDATE `RelProdMaterial` SET `material_prodmaterial` = ? WHERE `produto_prodmaterial` = ? AND material_prodmaterial = ?";
+        jdbcTemplate.update(sql, material.getNome(), produtoId, oldMaterial);
     }
 
-    public void deletarMaterialProduto(int idProdMaterial) {
-        String sql = "DELETE FROM `RelProdMaterial` WHERE id_prodmaterial = ?";
-        jdbcTemplate.update(sql, idProdMaterial);
+    public void deletarMaterialProduto(int produtoId, int material) {
+        String sql = "DELETE FROM `RelProdMaterial` WHERE `produto_prodmaterial` = ? AND material_prodmaterial = ?";
+        jdbcTemplate.update(sql, produtoId, material);
     }
 }

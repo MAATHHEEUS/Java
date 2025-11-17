@@ -40,16 +40,16 @@ public class ProdCorController {
         return "Cor salva com sucesso!";
     }
 
-    @PutMapping("/atualizar/{id}")
-    public String atualizarProdCor(@PathVariable String id, @RequestBody Cor cor){
-        prodCorDAO.atualizarCorProduto(Integer.parseInt(id), cor);
+    @PutMapping("/atualizar/{produtoId},{oldCor}")
+    public String atualizarProdCor(@PathVariable String produtoId, @PathVariable String oldCor, @RequestBody Cor cor){
+        prodCorDAO.atualizarCorProduto(Integer.parseInt(produtoId), Integer.parseInt(oldCor), cor);
         
         return "Cor atualizada!";
     }
 
-    @DeleteMapping("/remover/{id}")
-    public String deletarProdCor(@PathVariable String id) {
-        prodCorDAO.deletarCorProduto(Integer.parseInt(id));
+    @DeleteMapping("/remover/{produtoId},{cor}")
+    public String deletarProdCor(@PathVariable String produtoId, @PathVariable String cor) {
+        prodCorDAO.deletarCorProduto(Integer.parseInt(produtoId), Integer.parseInt(cor));
 
         return "Cor deletada do produto";
     }

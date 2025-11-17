@@ -40,16 +40,16 @@ public class ProdPromoController {
         return "Promoção salva com sucesso!";
     }
 
-    @PutMapping("/atualizar/{id}")
-    public String atualizarPromoProduto(@PathVariable String id, @RequestBody Promocao promo){
-        prodPromoDAO.atualizarPromoProduto(Integer.parseInt(id), promo);
+    @PutMapping("/atualizar/{produtoId},{oldPromo}")
+    public String atualizarPromoProduto(@PathVariable String produtoId, @PathVariable String oldPromo, @RequestBody Promocao promo){
+        prodPromoDAO.atualizarPromoProduto(Integer.parseInt(produtoId), Integer.parseInt(oldPromo), promo);
         
         return "Promoção atualizada!";
     }
 
-    @DeleteMapping("/remover/{id}")
-    public String deletarProdPromo(@PathVariable String id) {
-        prodPromoDAO.deletarPromoProduto(Integer.parseInt(id));
+    @DeleteMapping("/remover/{produtoId},{promo}")
+    public String deletarProdPromo(@PathVariable String produtoId, @PathVariable String promo) {
+        prodPromoDAO.deletarPromoProduto(Integer.parseInt(produtoId), Integer.parseInt(promo));
         return "Promoção deletada do produto";
     }
     

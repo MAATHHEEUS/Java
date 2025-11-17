@@ -55,14 +55,14 @@ public class RelProdPromocaoDAO {
 
     }
 
-    public void atualizarPromoProduto(int idProdPromo, Promocao promo) {
-        String sql = "UPDATE `RelProdPromocao` SET `promo_prodpromocao` = ? WHERE `id_prodpromocao` = ?";
-        jdbcTemplate.update(sql, promo.getNome(), idProdPromo);
+    public void atualizarPromoProduto(int produtoId, int oldPromo, Promocao promo) {
+        String sql = "UPDATE `RelProdPromocao` SET `promo_prodpromocao` = ? WHERE `produto_prodpromocao` = ? AND promo_prodpromocao = ?";
+        jdbcTemplate.update(sql, promo.getNome(), produtoId, oldPromo);
     }
 
-    public void deletarPromoProduto(int idProdPromo) {
-        String sql = "DELETE FROM `RelProdPromocao` WHERE id_prodpromocao = ?";
-        jdbcTemplate.update(sql, idProdPromo);
+    public void deletarPromoProduto(int produtoId, int promo) {
+        String sql = "DELETE FROM `RelProdPromocao` WHERE `produto_prodpromocao` = ? AND promo_prodpromocao = ?";
+        jdbcTemplate.update(sql, produtoId, promo);
     }
 
 }

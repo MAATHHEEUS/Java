@@ -24,6 +24,7 @@ public class EstoqueDAO implements IDAO {
         public Estoque mapRow(ResultSet rs, int rowNum) throws SQLException {
             Estoque estoque = new Estoque(rs.getInt("quantidade_estoque"), rs.getInt("produto_estoque"));
             estoque.setId(rs.getString("id_estoque"));
+            estoque.setDataCad(rs.getString("dtCad_estoque"));
 
             return estoque;
         }

@@ -32,8 +32,8 @@ public class EstoqueController {
         return facade.cadastrarEstoque(estoque);
     }
 
-    @GetMapping("")
-    public List<Entidade> listarEstoque(@RequestBody String produtoId) {
+    @GetMapping("/{produtoId}")
+    public List<Entidade> listarEstoque(@PathVariable String produtoId) {
         produtoId = produtoId.replaceAll("\\\"", ""); // Tirar as aspas
 
         Estoque estoque = new Estoque(0, Integer.parseInt(produtoId));
